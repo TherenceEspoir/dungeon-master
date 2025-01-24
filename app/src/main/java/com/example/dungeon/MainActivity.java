@@ -26,7 +26,12 @@ public class MainActivity extends AppCompatActivity {
 package com.example.dungeon;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.gridlayout.widget.GridLayout;
 import android.widget.Toast;
 
@@ -38,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         // Récupérer le GridLayout
         GridLayout gridLayout = findViewById(R.id.grid);
 
@@ -78,5 +84,38 @@ public class MainActivity extends AppCompatActivity {
             // Ajouter le bouton au GridLayout
             gridLayout.addView(button);
         }
+    }
+
+    // Charger le menu d'options
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if(id==R.id.action_restart)
+        {
+            Toast.makeText(this, "Partie redémarrée !", Toast.LENGTH_SHORT).show();
+            restartGame();
+            return true;
+        } else if (id==R.id.action_quit) {
+            Toast.makeText(this, "Application quittée !", Toast.LENGTH_SHORT).show();
+            finish(); // Ferme l'application
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void restartGame() {
+        // Ajoute ici ta logique pour réinitialiser la partie
+        Toast.makeText(this, "Recommencer la partie (ajouter la logique) !", Toast.LENGTH_SHORT).show();
     }
 }

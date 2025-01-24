@@ -48,17 +48,16 @@
 
     <TableLayout
         android:id="@+id/tablelayout"
-        android:layout_width="379dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="75dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
         app:layout_constraintBottom_toTopOf="@id/linear_layout_infos"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/grid">
 
+        <!-- Ligne 1 -->
         <TableRow>
 
             <TextView
@@ -75,6 +74,7 @@
                 android:textSize="16sp" />
         </TableRow>
 
+        <!-- Ligne 2 -->
         <TableRow>
 
             <TextView
@@ -91,7 +91,7 @@
                 android:textSize="16sp" />
         </TableRow>
 
-        <!-- Ligne pour "Points de vie" -->
+        <!-- Ligne 3 -->
         <TableRow>
 
             <TextView
@@ -107,15 +107,15 @@
                 android:text="10"
                 android:textSize="16sp" />
         </TableRow>
-
-
     </TableLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linear_layout_infos"
         android:layout_width="415dp"
-        android:layout_height="93dp"
-        android:layout_marginBottom="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="65dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -139,7 +139,6 @@
             android:id="@+id/tv_resultat_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:text="En attente ..."
             android:textColor="#666666"
             android:textSize="14sp"
