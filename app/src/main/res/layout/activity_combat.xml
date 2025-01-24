@@ -5,6 +5,136 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     tools:context=".CombatActivity">
 
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Texte Joueur -->
+    <TextView
+        android:id="@+id/tv_joueur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="JOUEUR"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <!-- Puissance et Points de vie -->
+    <TextView
+        android:id="@+id/tv_puissance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="16dp"
+        android:text="Puissance"
+        android:textColor="#000"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_joueur" />
+
+    <TextView
+        android:id="@+id/tv_points_de_vie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="50dp"
+        android:text="Points de vie"
+        android:textColor="#000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_joueur" />
+
+    <!-- Valeurs Puissance et Points de vie -->
+    <TextView
+        android:id="@+id/tv_puissance_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="100"
+        android:textColor="#000"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/tv_puissance"
+        app:layout_constraintTop_toBottomOf="@id/tv_puissance" />
+
+    <TextView
+        android:id="@+id/tv_points_de_vie_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="10"
+        android:textColor="#000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/tv_points_de_vie"
+        app:layout_constraintTop_toBottomOf="@id/tv_points_de_vie" />
+
+    <!-- Texte Adversaire -->
+    <TextView
+        android:id="@+id/tv_adversaire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="ADVERSAIRE"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_puissance_value" />
+
+    <!-- Valeur de l'Adversaire -->
+    <TextView
+        android:id="@+id/tv_adversaire_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="93"
+        android:textColor="#000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_adversaire" />
+
+    <!-- Boutons Attaque et Fuite -->
+    <Button
+        android:id="@+id/btn_attaque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#6A1B9A"
+        android:text="Attaque"
+        android:textColor="#FFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_adversaire_value" />
+
+    <Button
+        android:id="@+id/btn_fuite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="#6A1B9A"
+        android:text="Fuite"
+        android:textColor="#FFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_adversaire_value" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
