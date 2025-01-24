@@ -111,8 +111,10 @@ public class MainActivity extends AppCompatActivity {
 
         //Lancer l'activité de combat
         Intent intent = new Intent(MainActivity.this,CombatActivity.class);
-        intent.putExtra("piece_id",numeroPiece);
-        intent.putExtra("adversaire_puissance",donjon.getAdversaire(numeroPiece).getPuissance());
+        intent.putExtra("piece_id", numeroPiece);
+        intent.putExtra("adversaire_puissance", donjon.getAdversaire(numeroPiece).getPuissance());
+        intent.putExtra("joueur_puissance", gameManager.getJoueur().getPuissance());
+        intent.putExtra("joueur_pdv", gameManager.getJoueur().getPointsDeVie());
         startActivityForResult(intent,1);
     }
 

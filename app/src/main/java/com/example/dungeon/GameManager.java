@@ -26,4 +26,9 @@ public class GameManager {
     public EtatJeu getEtatJeu() {
         return etatActuel;
     }
+
+    public Joueur getJoueur()
+    {
+        return joueur;
+    }
 }

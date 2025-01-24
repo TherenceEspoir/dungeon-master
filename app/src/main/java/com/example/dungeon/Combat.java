@@ -27,6 +27,4 @@ public class Combat {
         joueur.perdrePdv(PERTE_PDV_FUITE);
     }
 
-
-
 }
