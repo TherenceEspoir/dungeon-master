@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private final String GAGNER="gagné";
     private final String PERDU="perdu";
     private TextView tvResultatCombat;
+    private TextView tvPiecesNonExplorees;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         gameManager = GameManager.getInstance();
         donjon = gameManager.getDonjon();
 
-        TextView tvPiecesNonExplorees = findViewById(R.id.tv_pieces_non_explorees_label);
+        tvPiecesNonExplorees = findViewById(R.id.tv_pieces_non_explorees_label);
         tvPiecesNonExplorees.setText("Pièces non explorées");
 
 
@@ -85,10 +86,12 @@ public class MainActivity extends AppCompatActivity {
         GameManager.resetInstance();
         gameManager = GameManager.getInstance(); // Obtenir la nouvelle instance
         donjon = gameManager.getDonjon();
-        //Toast.makeText(this, "Recommencer la partie (ajouter la logique) !", Toast.LENGTH_SHORT).show();
         // Réinitialiser la grille
         GridLayout gridLayout = findViewById(R.id.grid);
         rendreGrille(gridLayout);
+
+        tvPiecesNonExplorees.setText("Pièces non explorées");
+        tvResultatCombat.setText("En attente");
 
         Toast.makeText(this, "Nouvelle partie démarrée !", Toast.LENGTH_SHORT).show();
     }
@@ -165,12 +168,12 @@ public class MainActivity extends AppCompatActivity {
             // Créer un nouveau bouton
             Button button = new Button(this);
             button.setBackgroundResource(R.drawable.button_background);
-            button.setText(String.format("%02d", i + 1)); // Texte du bouton (01, 02, ...)
+            button.setText(String.format("%02d", i + 1));
 
             // Vérifier si la pièce est explorée
             if (donjon.isPieceExploree(i)) {
                 button.setEnabled(true);
-                button.setAlpha(0.5f); // Réduire l'opacité pour indiquer qu'elle est explorée
+                button.setAlpha(0.5f);
                 button.setText("X");
             }
 
@@ -180,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
                 if (donjon.isPieceExploree(finalI)) {
                     Toast.makeText(this, "Pièce vide, rien à explorer ici ! ", Toast.LENGTH_SHORT).show();
                 } else {
-                    //Toast.makeText(this, "Bouton " + (finalI + 1) + " cliqué !", Toast.LENGTH_SHORT).show();
                     lancerCombat(finalI); // Lancer le combat pour cette pièce
                 }
             });
