@@ -22,6 +22,11 @@ public class GameManager {
         return instance;
     }
 
+    // Méthode pour réinitialiser l'instance
+    public static void resetInstance() {
+        instance = new GameManager(); // Crée une nouvelle instance
+    }
+
     public boolean peutJouerPiece(int numeroPiece) {
         return !donjon.isPieceExploree(numeroPiece) && etatActuel == EtatJeu.EN_COURS;
     }

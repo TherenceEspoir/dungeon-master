@@ -81,11 +81,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void restartGame() {
-        gameManager = GameManager.getInstance(); // L'instance peut être recréée ici si besoin
-        Toast.makeText(this, "Recommencer la partie (ajouter la logique) !", Toast.LENGTH_SHORT).show();
+
+        GameManager.resetInstance();
+        gameManager = GameManager.getInstance(); // Obtenir la nouvelle instance
+        donjon = gameManager.getDonjon();
+        //Toast.makeText(this, "Recommencer la partie (ajouter la logique) !", Toast.LENGTH_SHORT).show();
         // Réinitialiser la grille
         GridLayout gridLayout = findViewById(R.id.grid);
         rendreGrille(gridLayout);
+
+        Toast.makeText(this, "Nouvelle partie démarrée !", Toast.LENGTH_SHORT).show();
     }
 
 
