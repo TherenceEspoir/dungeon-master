@@ -15,7 +15,7 @@ public class Combat {
         Adversaire adversaire = donjon.getAdversaire(numeroPiece);
         int resultat = calculerResultatCombat(joueur.getPuissance(), adversaire.getPuissance());
 
-        if (resultat > 0) {  // Victoire
+        if (resultat >= 0) {  // Victoire
             joueur.gagnerPuissance(GAIN_PUISSANCE_VICTOIRE);
             donjon.setPieceExploree(numeroPiece);
         } else {  // Défaite

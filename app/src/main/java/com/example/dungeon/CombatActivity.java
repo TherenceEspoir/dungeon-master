@@ -110,4 +110,22 @@ public class  CombatActivity extends AppCompatActivity {
         finish(); // Fermer l'activité et retourner à MainActivity
     }
 
+    @Override
+    public void onBackPressed() {
+        GameManager gameManager = GameManager.getInstance();
+        Joueur joueur = gameManager.getJoueur();
+
+        Combat.gererFuite(joueur);
+        // Préparer les données à retourner à MainActivity
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("combat_result", "fuite");
+        resultIntent.putExtra("piece_id", getIntent().getIntExtra("piece_id", -1));
+        resultIntent.putExtra("joueur_puissance", joueur.getPuissance());
+        resultIntent.putExtra("joueur_pdv", joueur.getPointsDeVie());
+        setResult(RESULT_OK, resultIntent);
+
+        // Fermer l'activité
+        finish();
+    }
+
 }

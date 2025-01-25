@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
         gameManager = GameManager.getInstance();
         donjon = gameManager.getDonjon();
 
+        TextView tvPiecesNonExplorees = findViewById(R.id.tv_pieces_non_explorees_label);
+        tvPiecesNonExplorees.setText("Pièces non explorées");
+
+
         // Vérifier que le GridLayout n'est pas null
         if (gridLayout == null) {
             Toast.makeText(this, "Erreur : GridLayout introuvable", Toast.LENGTH_SHORT).show();
@@ -115,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
                 rendreGrille(gridLayout);
             }
         }
+
+        TextView tvPiecesNonExplorees = findViewById(R.id.tv_pieces_non_explorees_label);
+        tvPiecesNonExplorees.setText( String.valueOf(gameManager.getDonjon().getNbPiecesNonExplorees()) + ": ");
     }
 
 
@@ -130,15 +137,16 @@ public class MainActivity extends AppCompatActivity {
 
             // Vérifier si la pièce est explorée
             if (donjon.isPieceExploree(i)) {
-                button.setEnabled(false); // Désactiver le bouton si la pièce est explorée
+                button.setEnabled(true);
                 button.setAlpha(0.5f); // Réduire l'opacité pour indiquer qu'elle est explorée
+                button.setText("X");
             }
 
             // Ajouter une action pour les clics sur le bouton
             int finalI = i; // Utiliser un index final pour le OnClickListener
             button.setOnClickListener(v -> {
                 if (donjon.isPieceExploree(finalI)) {
-                    Toast.makeText(this, "Cette pièce est déjà explorée.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Pièce vide, rien à explorer ici ! ", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Bouton " + (finalI + 1) + " cliqué !", Toast.LENGTH_SHORT).show();
                     lancerCombat(finalI); // Lancer le combat pour cette pièce
@@ -157,7 +165,20 @@ public class MainActivity extends AppCompatActivity {
 
             // Ajouter le bouton au GridLayout
             gridLayout.addView(button);
+
+            mettreAJourInfos();
         }
     }
+
+    private void mettreAJourInfos() {
+        // Mettre à jour la puissance du joueur
+        TextView tvPuissance = findViewById(R.id.tv_puissance_value);
+        tvPuissance.setText(String.valueOf(gameManager.getJoueur().getPuissance()));
+
+        // Mettre à jour les points de vie du joueur
+        TextView tvPointsDeVie = findViewById(R.id.tv_points_de_vie_value);
+        tvPointsDeVie.setText(String.valueOf(gameManager.getJoueur().getPointsDeVie()));
+    }
+
 
 }
