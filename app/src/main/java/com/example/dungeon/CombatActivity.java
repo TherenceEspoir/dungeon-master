@@ -82,7 +82,7 @@ public class  CombatActivity extends AppCompatActivity {
             retournerResultat("game_over");
         } else { // Défaite simple
             Toast.makeText(this, "Défaite ! Points de vie restants : " + joueur.getPointsDeVie(), Toast.LENGTH_SHORT).show();
-            retournerResultat("défaite");
+            retournerResultat("defaite");
         }
     }
 

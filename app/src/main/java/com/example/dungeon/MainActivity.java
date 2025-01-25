@@ -19,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
 
     private GameManager gameManager;
     private Donjon donjon;
+    private final String GAGNER="gagné";
+    private final String PERDU="perdu";
+    private TextView tvResultatCombat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        tvResultatCombat = findViewById(R.id.tv_resultat_message);
 
         // Récupérer le GridLayout
         GridLayout gridLayout = findViewById(R.id.grid);
@@ -109,14 +114,36 @@ public class MainActivity extends AppCompatActivity {
             int pieceId = data.getIntExtra("piece_id", -1);
 
             if (pieceId != -1) {
+
+                if ("victoire".equals(combatResult))
+                {
+                    donjon.setPieceExploree(pieceId);
+                    tvResultatCombat.setText("VICTOIRE !!!");
+                } else if ("fuite".equals(combatResult)) {
+                    tvResultatCombat.setText("Vous avez fuis ...");
+                } else if ("defaite".equals(combatResult)) {
+                    tvResultatCombat.setText("DEFAITE...");
+                }
+
                 Toast.makeText(this, "Résultat : " + combatResult, Toast.LENGTH_SHORT).show();
 
-                // Mettre à jour l'état du jeu
-                gameManager.updateEtatJeu();
-
-                // Rafraîchir la grille
-                GridLayout gridLayout = findViewById(R.id.grid);
-                rendreGrille(gridLayout);
+                //Verifier si toutes les pièces ont été explorées
+                if(donjon.getNbPiecesNonExplorees()==0)
+                {
+                    afficherMessage(GAGNER);
+                    tvResultatCombat.setText("Bravo, vous avez gagné ! Recommencez la partie ");
+                }
+                else if(gameManager.getJoueur().getPointsDeVie()<=0)
+                {
+                    afficherMessage(PERDU);
+                    tvResultatCombat.setText("Vous avez perdu ! Recommencez la partie ");
+                }else {
+                    // Mettre à jour l'état du jeu
+                    gameManager.updateEtatJeu();
+                    // Rafraîchir la grille
+                    GridLayout gridLayout = findViewById(R.id.grid);
+                    rendreGrille(gridLayout);
+                }
             }
         }
 
@@ -148,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                 if (donjon.isPieceExploree(finalI)) {
                     Toast.makeText(this, "Pièce vide, rien à explorer ici ! ", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Bouton " + (finalI + 1) + " cliqué !", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "Bouton " + (finalI + 1) + " cliqué !", Toast.LENGTH_SHORT).show();
                     lancerCombat(finalI); // Lancer le combat pour cette pièce
                 }
             });
@@ -180,5 +207,17 @@ public class MainActivity extends AppCompatActivity {
         tvPointsDeVie.setText(String.valueOf(gameManager.getJoueur().getPointsDeVie()));
     }
 
+
+    private void afficherMessage(String msg) {
+        Toast.makeText(this, "Vous avez " +msg+ " ! Relancez une nouvelle partie via le menu.", Toast.LENGTH_LONG).show();
+
+        // Désactiver tous les boutons de la grille
+        GridLayout gridLayout = findViewById(R.id.grid);
+        for (int i = 0; i < gridLayout.getChildCount(); i++) {
+            Button button = (Button) gridLayout.getChildAt(i);
+            button.setEnabled(false); // Désactiver les boutons
+            button.setAlpha(0.5f); // Réduire l'opacité
+        }
+    }
 
 }
