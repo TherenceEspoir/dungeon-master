@@ -74,7 +74,10 @@ public class  CombatActivity extends AppCompatActivity {
         tvPuissanceJoueur.setText(String.valueOf(joueur.getPuissance()));
         tvPointsDeVie.setText(String.valueOf(joueur.getPointsDeVie()));
 
-        if (gameManager.getDonjon().isPieceExploree(pieceId)) { // Victoire
+        // Vérifier l'état de la pièce après le combat
+        EtatPiece etatPiece = gameManager.getDonjon().getEtatPiece(pieceId);
+
+        if (etatPiece== EtatPiece.EXPLOREE_TERMINEE) { // Victoire
             Toast.makeText(this, "Victoire !", Toast.LENGTH_SHORT).show();
             retournerResultat("victoire");
         } else if (joueur.getPointsDeVie() <= 0) { // Défaite avec Game Over
@@ -88,10 +91,11 @@ public class  CombatActivity extends AppCompatActivity {
 
     private void gererFuite(Joueur joueur, TextView tvPointsDeVie) {
         // Utiliser la méthode `gererFuite` de la classe Combat
-        Combat.gererFuite(joueur);
+        Combat.gererFuite(joueur,gameManager.getDonjon(),pieceId);
 
         // Mettre à jour les points de vie
-        tvPointsDeVie.setText(String.valueOf(joueur.getPointsDeVie()));
+        int pointsDevie= Math.max(0,joueur.getPointsDeVie());
+        tvPointsDeVie.setText(String.valueOf(pointsDevie));
 
         if (joueur.getPointsDeVie() <= 0) { // Fuite mais Game Over
             Toast.makeText(this, "Game Over après fuite !", Toast.LENGTH_SHORT).show();
@@ -115,7 +119,7 @@ public class  CombatActivity extends AppCompatActivity {
         GameManager gameManager = GameManager.getInstance();
         Joueur joueur = gameManager.getJoueur();
 
-        Combat.gererFuite(joueur);
+        Combat.gererFuite(joueur,gameManager.getDonjon(),pieceId);
         // Préparer les données à retourner à MainActivity
         Intent resultIntent = new Intent();
         resultIntent.putExtra("combat_result", "fuite");

@@ -17,14 +17,16 @@ public class Combat {
 
         if (resultat >= 0) {  // Victoire
             joueur.gagnerPuissance(GAIN_PUISSANCE_VICTOIRE);
-            donjon.setPieceExploree(numeroPiece);
+            donjon.setEtatPiece(numeroPiece,EtatPiece.EXPLOREE_TERMINEE);
         } else {  // Défaite
             joueur.perdrePdv(PERTE_PDV_DEFAITE);
+            donjon.setEtatPiece(numeroPiece,EtatPiece.EXPLOREE_NON_TERMINEE);
         }
     }
 
-    public static void gererFuite(Joueur joueur) {
+    public static void gererFuite(Joueur joueur,Donjon donjon, int numeroPiece) {
         joueur.perdrePdv(PERTE_PDV_FUITE);
+        donjon.setEtatPiece(numeroPiece,EtatPiece.EXPLOREE_NON_TERMINEE);
     }
 
 }

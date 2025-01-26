@@ -6,18 +6,33 @@ public class Donjon {
     private Adversaire[] pieces;
     private boolean[] piecesExplorees;
     private int nbPiecesNonExplorees;
+    private EtatPiece[] etatsPieces;
 
     public Donjon() {
         pieces = new Adversaire[NB_PIECES];
-        piecesExplorees = new boolean[NB_PIECES];
+        etatsPieces = new EtatPiece[NB_PIECES];
         nbPiecesNonExplorees = NB_PIECES;
 
         // Initialisation des adversaires avec puissance aléatoire entre 1 et 150
         for (int i = 0; i < NB_PIECES; i++) {
             int puissance = (int) (Math.random() * PUISSANCE_MAX) + 1;
             pieces[i] = new Adversaire(puissance);
-            piecesExplorees[i] = false;
+            etatsPieces[i] =EtatPiece.NON_EXPLOREE;
         }
+    }
+
+    public EtatPiece getEtatPiece(int piece)
+    {
+        return etatsPieces[piece];
+    }
+
+    public void setEtatPiece(int piece,EtatPiece etat)
+    {
+        if(etatsPieces[piece] == EtatPiece.NON_EXPLOREE)
+        {
+            nbPiecesNonExplorees--; //Réduire le compteur uniquepent si la pièce passe de Non exploré à un autre état
+        }
+        etatsPieces[piece] = etat; // Mettre à jour l'état de la pièce
     }
 
     public Adversaire getAdversaire(int piece) {
@@ -26,13 +41,6 @@ public class Donjon {
 
     public boolean isPieceExploree(int piece) {
         return piecesExplorees[piece];
-    }
-
-    public void setPieceExploree(int piece) {
-        if (!piecesExplorees[piece]) {
-            piecesExplorees[piece] = true;
-            nbPiecesNonExplorees--;
-        }
     }
 
     public int getNbPiecesNonExplorees() {

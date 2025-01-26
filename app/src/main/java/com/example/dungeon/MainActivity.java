@@ -1,15 +1,16 @@
 package com.example.dungeon;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.gridlayout.widget.GridLayout;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         donjon = gameManager.getDonjon();
 
         tvPiecesNonExplorees = findViewById(R.id.tv_pieces_non_explorees_label);
-        tvPiecesNonExplorees.setText("Pièces non explorées");
+        tvPiecesNonExplorees.setText("Pièces non explorées:");
 
 
         // Vérifier que le GridLayout n'est pas null
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id==R.id.action_quit) {
             Toast.makeText(this, "Application quittée !", Toast.LENGTH_SHORT).show();
-            finish(); // Ferme l'application
+            finish();
             return true;
         }
         else {
@@ -125,33 +127,34 @@ public class MainActivity extends AppCompatActivity {
 
                 if ("victoire".equals(combatResult))
                 {
-                    donjon.setPieceExploree(pieceId);
+                    donjon.setEtatPiece(pieceId,EtatPiece.EXPLOREE_TERMINEE);
                     tvResultatCombat.setText("VICTOIRE !!!");
                 } else if ("fuite".equals(combatResult)) {
+                    donjon.setEtatPiece(pieceId,EtatPiece.EXPLOREE_NON_TERMINEE);
                     tvResultatCombat.setText("Vous avez fuis ...");
                 } else if ("defaite".equals(combatResult)) {
+                    donjon.setEtatPiece(pieceId,EtatPiece.EXPLOREE_NON_TERMINEE);
                     tvResultatCombat.setText("DEFAITE...");
                 }
 
-                Toast.makeText(this, "Résultat : " + combatResult, Toast.LENGTH_SHORT).show();
+                // Mettre à jour l'état du jeu
+                gameManager.updateEtatJeu();
+
 
                 //Verifier si toutes les pièces ont été explorées
                 if(donjon.getNbPiecesNonExplorees()==0)
                 {
-                    afficherMessage(GAGNER);
-                    tvResultatCombat.setText("Bravo, vous avez gagné ! Recommencez la partie ");
+                    gridOffwithMessage(GAGNER);
                 }
                 else if(gameManager.getJoueur().getPointsDeVie()<=0)
                 {
-                    afficherMessage(PERDU);
-                    tvResultatCombat.setText("Vous avez perdu ! Recommencez la partie ");
+                    gridOffwithMessage(PERDU);
                 }else {
-                    // Mettre à jour l'état du jeu
-                    gameManager.updateEtatJeu();
                     // Rafraîchir la grille
                     GridLayout gridLayout = findViewById(R.id.grid);
                     rendreGrille(gridLayout);
                 }
+                mettreAJourInfos();
             }
         }
 
@@ -165,25 +168,32 @@ public class MainActivity extends AppCompatActivity {
         gridLayout.removeAllViews(); // Nettoyer les anciennes vues
 
         for (int i = 0; i < totalButtons; i++) { // Commencer à 0 pour correspondre à l'index du tableau
-            // Créer un nouveau bouton
-            Button button = new Button(this);
-            button.setBackgroundResource(R.drawable.button_background);
-            button.setText(String.format("%02d", i + 1));
 
-            // Vérifier si la pièce est explorée
-            if (donjon.isPieceExploree(i)) {
-                button.setEnabled(true);
-                button.setAlpha(0.5f);
-                button.setText("X");
+            ImageView imageView = new ImageView(this);
+            //imageView.setBackgroundColor(Color.parseColor("#80000000")); // Gris semi-transparent
+            //imageView.setBackgroundColor(Color.parseColor("#DFFFD6"));
+            imageView.setBackgroundColor(Color.parseColor("#283593"));
+
+
+            //Choisir une image en fonction de l'état de la pièce
+            
+            EtatPiece etatPiece = donjon.getEtatPiece(i);
+            if(etatPiece == EtatPiece.NON_EXPLOREE)
+            {
+                imageView.setImageResource(R.drawable.non_explore);
+            } else if (etatPiece == EtatPiece.EXPLOREE_TERMINEE) {
+                imageView.setImageResource(R.drawable.exploree_terminee);
+            } else if (etatPiece == EtatPiece.EXPLOREE_NON_TERMINEE) {
+                imageView.setImageResource(R.drawable.exploree_non_terminee);
             }
 
             // Ajouter une action pour les clics sur le bouton
             int finalI = i; // Utiliser un index final pour le OnClickListener
-            button.setOnClickListener(v -> {
-                if (donjon.isPieceExploree(finalI)) {
-                    Toast.makeText(this, "Pièce vide, rien à explorer ici ! ", Toast.LENGTH_SHORT).show();
-                } else {
+            imageView.setOnClickListener(v -> {
+                if (etatPiece == EtatPiece.NON_EXPLOREE || etatPiece == EtatPiece.EXPLOREE_NON_TERMINEE) {
                     lancerCombat(finalI); // Lancer le combat pour cette pièce
+                } else {
+                    Toast.makeText(this, "Pièce vide, rien à explorer ici ! ", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -195,10 +205,10 @@ public class MainActivity extends AppCompatActivity {
             params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
             params.setMargins(8, 8, 8, 8);
 
-            button.setLayoutParams(params);
+            imageView.setLayoutParams(params);
 
             // Ajouter le bouton au GridLayout
-            gridLayout.addView(button);
+            gridLayout.addView(imageView);
 
             mettreAJourInfos();
         }
@@ -215,16 +225,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void afficherMessage(String msg) {
-        Toast.makeText(this, "Vous avez " +msg+ " ! Relancez une nouvelle partie via le menu.", Toast.LENGTH_LONG).show();
+    private void gridOffwithMessage(String msg) {
+        // Afficher un message Toast informant l'utilisateur
+        Toast.makeText(this, "Vous avez " + msg + " ! Relancez une nouvelle partie via le menu.", Toast.LENGTH_LONG).show();
 
-        // Désactiver tous les boutons de la grille
+        // Désactiver toutes les images de la grille
         GridLayout gridLayout = findViewById(R.id.grid);
         for (int i = 0; i < gridLayout.getChildCount(); i++) {
-            Button button = (Button) gridLayout.getChildAt(i);
-            button.setEnabled(false); // Désactiver les boutons
-            button.setAlpha(0.5f); // Réduire l'opacité
+            ImageView imageView = (ImageView) gridLayout.getChildAt(i);
+            imageView.setEnabled(false); // Désactiver l'ImageView
+            imageView.setAlpha(0.5f); // Réduire l'opacité pour indiquer qu'elle est inactive
+        }
+
+        // Mettre à jour le message de résultat du combat tvResultatCombat
+
+        if ("gagné".equalsIgnoreCase(msg)) {
+            tvResultatCombat.setText("Bravo, vous avez gagné ! Relancez une nouvelle partie.");
+        } else if ("perdu".equalsIgnoreCase(msg)) {
+            tvResultatCombat.setText("Vous avez perdu ! Relancez une nouvelle partie.");
         }
     }
+
 
 }
