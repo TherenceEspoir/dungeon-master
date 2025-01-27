@@ -34,7 +34,7 @@ public class Donjon {
     {
         return etatsPieces[piece];
     }
-
+/*
     public void setEtatPiece(int piece,EtatPiece etat)
     {
         if(etatsPieces[piece] == EtatPiece.NON_EXPLOREE)
@@ -45,6 +45,38 @@ public class Donjon {
         }
         etatsPieces[piece] = etat; // Mettre à jour l'état de la pièce
     }
+*/
+
+    /*
+    public void setEtatPiecee(int piece, EtatPiece nouvelEtat) {
+        // Vérifie si la transition est de NON_EXPLOREE à EXPLOREE_TERMINEE
+        if (etatsPieces[piece] == EtatPiece.NON_EXPLOREE && nouvelEtat == EtatPiece.EXPLOREE_TERMINEE) {
+            nbPiecesNonExplorees--; // Réduire le compteur uniquement si l'adversaire a été vaincu
+        }
+
+        // Mettre à jour l'état de la pièce
+        etatsPieces[piece] = nouvelEtat;
+
+    }*/
+
+    public void setEtatPiece(int piece, EtatPiece nouvelEtat) {
+        // Décrémenter si l'état courant est NON_EXPLOREE ou EXPLOREE_NON_TERMINEE,
+        // et que le nouvel état est EXPLOREE_TERMINEE
+        if ((etatsPieces[piece] == EtatPiece.NON_EXPLOREE || etatsPieces[piece] == EtatPiece.EXPLOREE_NON_TERMINEE)
+                && nouvelEtat == EtatPiece.EXPLOREE_TERMINEE) {
+            nbPiecesNonExplorees--; // Réduire le compteur
+        }
+
+        // Mettre à jour l'état de la pièce
+        etatsPieces[piece] = nouvelEtat;
+
+        // Journal pour débogage
+        System.out.println("État de la pièce " + piece + " mis à jour à : " + nouvelEtat);
+        System.out.println("Pièces non explorées restantes : " + nbPiecesNonExplorees);
+    }
+
+
+
 
     public Adversaire getAdversaire(int piece) {
         return pieces[piece];

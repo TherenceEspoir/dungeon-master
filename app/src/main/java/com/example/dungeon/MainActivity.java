@@ -158,10 +158,18 @@ public class MainActivity extends AppCompatActivity {
                 //if(donjon.getNbPiecesNonExplorees()==0)
                 if(donjon.tousLesAdversairesVaincus())
                 {
+                    // Rafraîchir la grille avant de désactiver
+                    GridLayout gridLayout = findViewById(R.id.grid);
+                    rendreGrille(gridLayout);
+
                     gridOffwithMessage(GAGNER);
                 }
                 else if(gameManager.getJoueur().getPointsDeVie()<=0)
                 {
+                    // Rafraîchir la grille avant de désactiver
+                    GridLayout gridLayout = findViewById(R.id.grid);
+                    rendreGrille(gridLayout);
+
                     gridOffwithMessage(PERDU);
                 }else {
                     // Rafraîchir la grille
