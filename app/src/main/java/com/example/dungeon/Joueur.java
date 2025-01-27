@@ -1,15 +1,12 @@
 package com.example.dungeon;
 
 public class Joueur {
-    public static int PUISSANCE_INITIALE = 100;
-    public static int POINTS_DE_VIE_INITIAUX = 10;
 
-    private int puissance;
-    private int pointsDeVie;
+
+    private int puissance = Configuration.PUISSANCE_INITIALE_JOUEUR;
+    private int pointsDeVie = Configuration.POINTS_DE_VIE_INITIAUX;
 
     public Joueur() {
-        this.puissance = PUISSANCE_INITIALE;
-        this.pointsDeVie = POINTS_DE_VIE_INITIAUX;
     }
 
     public int getPuissance() {
@@ -30,6 +27,10 @@ public class Joueur {
 
     public void perdrePdv(int points) {
         this.pointsDeVie -= points;
+        if(this.pointsDeVie < 0 )
+        {
+            this.pointsDeVie = 0; //Pour empecher les points de vie négatifs
+        }
     }
 
     public void gagnerPuissance(int points) {

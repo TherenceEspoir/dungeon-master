@@ -77,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Application quittée !", Toast.LENGTH_SHORT).show();
             finish();
             return true;
+        }else if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingActivity.class);
+            startActivity(intent);
+            return true;
         }
         else {
             return super.onOptionsItemSelected(item);
@@ -150,8 +154,9 @@ public class MainActivity extends AppCompatActivity {
                 gameManager.updateEtatJeu();
 
 
-                //Verifier si toutes les pièces ont été explorées
-                if(donjon.getNbPiecesNonExplorees()==0)
+                //Verifier si toutes les pièces ont été explorées terminés
+                //if(donjon.getNbPiecesNonExplorees()==0)
+                if(donjon.tousLesAdversairesVaincus())
                 {
                     gridOffwithMessage(GAGNER);
                 }
@@ -179,8 +184,6 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < totalButtons; i++) { // Commencer à 0 pour correspondre à l'index du tableau
 
             ImageView imageView = new ImageView(this);
-            //imageView.setBackgroundColor(Color.parseColor("#80000000")); // Gris semi-transparent
-            //imageView.setBackgroundColor(Color.parseColor("#DFFFD6"));
             imageView.setBackgroundColor(Color.parseColor("#283593"));
 
 

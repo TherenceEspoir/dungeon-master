@@ -7,7 +7,6 @@ public class Donjon {
             "Golem de pierre", "Esprit hanté", "Hydre", "Cyclope", "Fantôme", "Démon"
     };
     private static final int NB_PIECES = 16;
-    private static final int PUISSANCE_MAX = 150;
     private Adversaire[] pieces;
     private int nbPiecesNonExplorees;
     private EtatPiece[] etatsPieces;
@@ -22,7 +21,7 @@ public class Donjon {
 
         // Initialisation des adversaires avec puissance aléatoire entre 1 et 150
         for (int i = 0; i < NB_PIECES; i++) {
-            int puissance = (int) (Math.random() * PUISSANCE_MAX) + 1;
+            int puissance = (int) (Math.random() * Configuration.PUISSANCE_MAX_ADVERSAIRE) + 1;
             String nom = NOM_ADVERSAIRES[i];
             pieces[i] = new Adversaire(puissance,nom);
             etatsPieces[i] =EtatPiece.NON_EXPLOREE;
@@ -40,7 +39,9 @@ public class Donjon {
     {
         if(etatsPieces[piece] == EtatPiece.NON_EXPLOREE)
         {
-            nbPiecesNonExplorees--; //Réduire le compteur uniquepent si la pièce passe de Non exploré à un autre état
+            if(etat == EtatPiece.EXPLOREE_TERMINEE ) {
+                nbPiecesNonExplorees--; //Réduire le compteur uniquepent si la pièce est complètement explorée
+            }
         }
         etatsPieces[piece] = etat; // Mettre à jour l'état de la pièce
     }
@@ -83,6 +84,18 @@ public class Donjon {
         } else if (numeroPiece == indexCharmePuissance) {
             indexCharmePuissance = -1;  // Bonus retiré
         }
+    }
+
+
+    public boolean tousLesAdversairesVaincus() {
+        for (int i = 0; i < NB_PIECES; i++) {
+            if (pieces[i] != null) {
+                if (etatsPieces[i] != EtatPiece.EXPLOREE_TERMINEE) {
+                    return false; // L'adversaire de cette pièce n'a pas été vaincu
+                }
+            }
+        }
+        return true; // Tous les adversaires ont été vaincus
     }
 
 

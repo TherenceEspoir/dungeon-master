@@ -27,25 +27,26 @@ public class GameManager {
         instance = new GameManager(); // Crée une nouvelle instance
     }
 
-    /*
-    public boolean peutJouerPiecee(int numeroPiece) {
-        //return !donjon.isPieceExploree(numeroPiece) && etatActuel == EtatJeu.EN_COURS;
-        return donjon.getEtatPiece(numeroPiece) == EtatPiece.NON_EXPLOREE && etatActuel == EtatJeu.EN_COURS;
-    }*/
-
     public boolean peutJouerPiece(int numeroPiece) {
         EtatPiece etat = donjon.getEtatPiece(numeroPiece);
         // Une pièce peut être jouée si elle est NON_EXPLOREE ou EXPLOREE_NON_TERMINEE
         return (etat == EtatPiece.NON_EXPLOREE || etat == EtatPiece.EXPLOREE_NON_TERMINEE) && etatActuel == EtatJeu.EN_COURS;
     }
 
-
-
-
+    /*
     public void updateEtatJeu() {
         if (joueur.getPointsDeVie() <= 0) {
             etatActuel = EtatJeu.DEFAITE;
         } else if (donjon.getNbPiecesNonExplorees() == 0) {
+            etatActuel = EtatJeu.VICTOIRE;
+        }
+    }
+    */
+
+    public void updateEtatJeu() {
+        if (joueur.getPointsDeVie() <= 0) {
+            etatActuel = EtatJeu.DEFAITE;
+        } else if (donjon.tousLesAdversairesVaincus()) {
             etatActuel = EtatJeu.VICTOIRE;
         }
     }

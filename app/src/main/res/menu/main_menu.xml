@@ -10,4 +10,9 @@
         android:id="@+id/action_quit"
         android:title="Quitter"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:title="Paramètres"
+        android:icon="@android:drawable/ic_menu_manage"
+        app:showAsAction="never" />
 </menu>
