@@ -8,7 +8,6 @@
     android:background="#F5F5F5"
     tools:context=".CombatActivity">
 
-    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -20,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Texte Joueur -->
     <TextView
         android:id="@+id/tv_joueur"
         android:layout_width="wrap_content"
@@ -35,7 +33,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <!-- Puissance et Points de vie -->
     <TextView
         android:id="@+id/tv_puissance"
         android:layout_width="wrap_content"
@@ -60,7 +57,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_joueur" />
 
-    <!-- Valeurs Puissance et Points de vie -->
     <TextView
         android:id="@+id/tv_puissance_value"
         android:layout_width="wrap_content"
@@ -83,7 +79,6 @@
         app:layout_constraintEnd_toEndOf="@id/tv_points_de_vie"
         app:layout_constraintTop_toBottomOf="@id/tv_points_de_vie" />
 
-    <!-- Texte Adversaire -->
     <TextView
         android:id="@+id/tv_adversaire"
         android:layout_width="wrap_content"
@@ -97,7 +92,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_puissance_value" />
 
-    <!-- Valeur de l'Adversaire -->
+    <ImageView
+        android:id="@+id/iv_monstre"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_adversaire" />
+
+    <TextView
+        android:id="@+id/tv_nom_monstre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_monstre" />
+
     <TextView
         android:id="@+id/tv_adversaire_value"
         android:layout_width="wrap_content"
@@ -108,9 +122,8 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_adversaire" />
+        app:layout_constraintTop_toBottomOf="@id/tv_nom_monstre" />
 
-    <!-- Boutons Attaque et Fuite -->
     <Button
         android:id="@+id/btn_attaque"
         android:layout_width="wrap_content"
@@ -136,5 +149,3 @@
         app:layout_constraintTop_toBottomOf="@id/tv_adversaire_value" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

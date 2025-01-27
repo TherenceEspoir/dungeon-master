@@ -1,5 +1,6 @@
 package com.example.dungeon;
-
+import android.content.Context;
+import android.widget.Toast;
 public class Combat {
     private static final int PERTE_PDV_FUITE = 1;
     private static final int PERTE_PDV_DEFAITE = 3;
@@ -28,5 +29,4 @@ public class Combat {
         joueur.perdrePdv(PERTE_PDV_FUITE);
         donjon.setEtatPiece(numeroPiece,EtatPiece.EXPLOREE_NON_TERMINEE);
     }
-
 }

@@ -3,6 +3,7 @@ package com.example.dungeon;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,10 +54,14 @@ public class  CombatActivity extends AppCompatActivity {
         TextView tvPuissanceAdversaire = findViewById(R.id.tv_adversaire_value);
         TextView tvPuissanceJoueur = findViewById(R.id.tv_puissance_value);
         TextView tvPointsDeVie = findViewById(R.id.tv_points_de_vie_value);
+        ImageView ivAdversaire = findViewById(R.id.iv_monstre);
+        TextView tvAdversaireNom = findViewById(R.id.tv_adversaire);
 
         tvPuissanceAdversaire.setText(String.valueOf(adversaire.getPuissance()));
         tvPuissanceJoueur.setText(String.valueOf(joueur.getPuissance()));
         tvPointsDeVie.setText(String.valueOf(joueur.getPointsDeVie()));
+        ivAdversaire.setImageResource(R.drawable.monster);
+        tvAdversaireNom.setText(adversaire.getNom());
 
         // Gestion des actions
         Button btnAttaque = findViewById(R.id.btn_attaque);

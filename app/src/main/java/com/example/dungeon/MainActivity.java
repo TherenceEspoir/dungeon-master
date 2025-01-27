@@ -106,12 +106,21 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        // Vérifier et appliquer le bonus avant le combat
+        if (donjon.contientBonus(numeroPiece)) {
+            Bonus bonus = donjon.getBonus(numeroPiece);
+            appliquerBonus(gameManager.getJoueur(), bonus); // Applique le bonus
+            donjon.retirerBonus(numeroPiece); // Retire le bonus de la pièce
+        }
+
         // Lancer l'activité de combat
         Intent intent = new Intent(MainActivity.this, CombatActivity.class);
         intent.putExtra("piece_id", numeroPiece);
         intent.putExtra("adversaire_puissance", gameManager.getDonjon().getAdversaire(numeroPiece).getPuissance());
         intent.putExtra("joueur_puissance", gameManager.getJoueur().getPuissance());
         intent.putExtra("joueur_pdv", gameManager.getJoueur().getPointsDeVie());
+        intent.putExtra("adversaire_nom", donjon.getAdversaire(numeroPiece).getNom());
+
         startActivityForResult(intent, 1);
     }
 
@@ -246,5 +255,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    private void appliquerBonus(Joueur joueur, Bonus bonus) {
+        if (bonus.getType() == BonusType.POTION_MAGIQUE) {
+            int pointsDeVieRestitues = bonus.getValeur();
+            joueur.gagnerPointsDeVie(pointsDeVieRestitues);
+            Toast.makeText(this, "Vous avez trouvé une potion magique ! +" + pointsDeVieRestitues + " points de vie !", Toast.LENGTH_LONG).show();
+        } else if (bonus.getType() == BonusType.CHARME_PUISSANCE) {
+            int puissanceAjoutee = bonus.getValeur();
+            joueur.gagnerPuissance(puissanceAjoutee);
+            Toast.makeText(this, "Vous avez trouvé un charme de puissance ! +" + puissanceAjoutee + " de puissance !", Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

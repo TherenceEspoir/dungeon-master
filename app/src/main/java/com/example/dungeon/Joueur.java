@@ -35,4 +35,8 @@ public class Joueur {
     public void gagnerPuissance(int points) {
         this.puissance += points;
     }
+
+    public void gagnerPointsDeVie(int points) {
+        this.pointsDeVie += points;
+    }
 }
