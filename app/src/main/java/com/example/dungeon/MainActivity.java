@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
         if(id==R.id.action_restart)
         {
-            Toast.makeText(this, "Partie redémarrée !", Toast.LENGTH_SHORT).show();
             restartGame();
             return true;
         } else if (id==R.id.action_quit) {
@@ -90,13 +89,13 @@ public class MainActivity extends AppCompatActivity {
     private void restartGame() {
 
         GameManager.resetInstance();
-        gameManager = GameManager.getInstance(); // Obtenir la nouvelle instance
+        gameManager = GameManager.getInstance(); // Obtenir Une nouvelle instance du gameManager
         donjon = gameManager.getDonjon();
         // Réinitialiser la grille
         GridLayout gridLayout = findViewById(R.id.grid);
         rendreGrille(gridLayout);
 
-        tvPiecesNonExplorees.setText("Pièces non explorées");
+        tvPiecesNonExplorees.setText("Pièces non explorées : ");
         tvResultatCombat.setText("En attente");
 
         Toast.makeText(this, "Nouvelle partie démarrée !", Toast.LENGTH_SHORT).show();
@@ -155,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //Verifier si toutes les pièces ont été explorées terminés
-                //if(donjon.getNbPiecesNonExplorees()==0)
                 if(donjon.tousLesAdversairesVaincus())
                 {
                     // Rafraîchir la grille avant de désactiver
