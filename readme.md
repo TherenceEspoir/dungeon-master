@@ -46,28 +46,28 @@ Dungeon est un jeu d'exploration et de combat où le joueur explore un donjon, a
 
 Le projet est organisé en plusieurs packages pour assurer une séparation claire des responsabilités.
 
-com.example.dungeon
-│── ui
-│ ├── MainActivity.java
-│ ├── CombatActivity.java
-│ ├── SettingActivity.java
-│
-│── core
-│ ├── GameManager.java
-│ ├── Configuration.java
-│
-│── model
-│ ├── Joueur.java
-│ ├── Adversaire.java
-│ ├── Donjon.java
-│ ├── EtatJeu.java
-│ ├── EtatPiece.java
-
-│
-│── combat
-│ ├── Combat.java
-│ ├── Bonus.java
-│ ├── BonusType.java
+### com.example.dungeon
+### │── ui
+### │ ├── MainActivity.java
+### │ ├── CombatActivity.java
+### │ ├── SettingActivity.java
+### │
+### │── core
+### │ ├── GameManager.java
+### │ ├── Configuration.java
+### │
+### │── model
+### │ ├── Joueur.java
+### │ ├── Adversaire.java
+### │ ├── Donjon.java
+### │ ├── EtatJeu.java
+### │ ├── EtatPiece.java
+###
+### │
+### │── combat
+### │ ├── Combat.java
+### │ ├── Bonus.java
+### │ ├── BonusType.java
 
 
 
