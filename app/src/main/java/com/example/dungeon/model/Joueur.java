@@ -1,4 +1,6 @@
-package com.example.dungeon;
+package com.example.dungeon.model;
+
+import com.example.dungeon.core.Configuration;
 
 public class Joueur {
 

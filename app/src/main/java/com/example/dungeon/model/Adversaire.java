@@ -1,4 +1,4 @@
-package com.example.dungeon;
+package com.example.dungeon.model;
 
 public class Adversaire {
 

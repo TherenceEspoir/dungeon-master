@@ -1,4 +1,8 @@
-package com.example.dungeon;
+package com.example.dungeon.model;
+
+import com.example.dungeon.combat.Bonus;
+import com.example.dungeon.combat.BonusType;
+import com.example.dungeon.core.Configuration;
 
 public class Donjon {
     private static final String[] NOM_ADVERSAIRES = {

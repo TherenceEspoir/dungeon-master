@@ -1,4 +1,9 @@
-package com.example.dungeon;
+package com.example.dungeon.core;
+
+import com.example.dungeon.model.Donjon;
+import com.example.dungeon.model.EtatJeu;
+import com.example.dungeon.model.EtatPiece;
+import com.example.dungeon.model.Joueur;
 
 public class GameManager {
     private static GameManager instance;

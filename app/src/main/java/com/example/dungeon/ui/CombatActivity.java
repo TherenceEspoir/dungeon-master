@@ -1,4 +1,4 @@
-package com.example.dungeon;
+package com.example.dungeon.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.dungeon.combat.Combat;
+import com.example.dungeon.R;
+import com.example.dungeon.core.GameManager;
+import com.example.dungeon.model.Adversaire;
+import com.example.dungeon.model.EtatPiece;
+import com.example.dungeon.model.Joueur;
 
 public class  CombatActivity extends AppCompatActivity {
     private  int pieceId;

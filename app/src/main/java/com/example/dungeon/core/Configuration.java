@@ -1,4 +1,4 @@
-package com.example.dungeon;
+package com.example.dungeon.core;
 
 public class Configuration {
     public static int PUISSANCE_INITIALE_JOUEUR = 100;

@@ -1,6 +1,10 @@
-package com.example.dungeon;
-import android.content.Context;
-import android.widget.Toast;
+package com.example.dungeon.combat;
+
+import com.example.dungeon.model.Adversaire;
+import com.example.dungeon.model.Donjon;
+import com.example.dungeon.model.EtatPiece;
+import com.example.dungeon.model.Joueur;
+
 public class Combat {
     private static final int PERTE_PDV_FUITE = 1;
     private static final int PERTE_PDV_DEFAITE = 3;
@@ -18,7 +22,7 @@ public class Combat {
 
         if (resultat >= 0) {  // Victoire
             joueur.gagnerPuissance(GAIN_PUISSANCE_VICTOIRE);
-            donjon.setEtatPiece(numeroPiece,EtatPiece.EXPLOREE_TERMINEE);
+            donjon.setEtatPiece(numeroPiece, EtatPiece.EXPLOREE_TERMINEE);
         } else {  // Défaite
             joueur.perdrePdv(PERTE_PDV_DEFAITE);
             donjon.setEtatPiece(numeroPiece,EtatPiece.EXPLOREE_NON_TERMINEE);

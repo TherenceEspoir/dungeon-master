@@ -1,4 +1,4 @@
-package com.example.dungeon;
+package com.example.dungeon.combat;
 
 public class Bonus {
     private BonusType type;

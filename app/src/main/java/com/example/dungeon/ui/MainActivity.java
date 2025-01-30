@@ -1,4 +1,4 @@
-package com.example.dungeon;
+package com.example.dungeon.ui;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.dungeon.combat.Bonus;
+import com.example.dungeon.combat.BonusType;
+import com.example.dungeon.R;
+import com.example.dungeon.core.GameManager;
+import com.example.dungeon.model.Donjon;
+import com.example.dungeon.model.EtatPiece;
+import com.example.dungeon.model.Joueur;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -139,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if ("victoire".equals(combatResult))
                 {
-                    donjon.setEtatPiece(pieceId,EtatPiece.EXPLOREE_TERMINEE);
+                    donjon.setEtatPiece(pieceId, EtatPiece.EXPLOREE_TERMINEE);
                     tvResultatCombat.setText("VICTOIRE !!!");
                 } else if ("fuite".equals(combatResult)) {
                     donjon.setEtatPiece(pieceId,EtatPiece.EXPLOREE_NON_TERMINEE);
