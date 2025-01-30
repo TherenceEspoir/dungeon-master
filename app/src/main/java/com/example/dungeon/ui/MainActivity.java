@@ -24,6 +24,13 @@ import com.example.dungeon.model.Donjon;
 import com.example.dungeon.model.EtatPiece;
 import com.example.dungeon.model.Joueur;
 
+
+/**
+ * Activité principale du jeu.
+ * - Affiche la grille des pièces du donjon.
+ * - Permet d'accéder aux paramètres du jeu.
+ * - Gère l'affichage des résultats des combats.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private GameManager gameManager;
@@ -62,7 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // Charger le menu d'options
+    /**
+     * Ajout des options de menu (restart, quitter, paramètres).
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -71,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Gestion des actions du menu.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -94,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Réinitialise la partie en recréant une instance de GameManager et en rafraîchissant l'affichage.
+     */
     private void restartGame() {
 
         GameManager.resetInstance();
@@ -110,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Lance l'activité de combat en envoyant les informations nécessaires.
+     */
     private void lancerCombat(int numeroPiece) {
         // Vérifier si la pièce est déjà explorée
         if (!gameManager.peutJouerPiece(numeroPiece)) {
@@ -135,6 +153,11 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
+
+
+    /**
+     * Récupère le résultat du combat et met à jour l'affichage du jeu.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

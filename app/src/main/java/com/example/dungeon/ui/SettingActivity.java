@@ -11,7 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.dungeon.R;
 import com.example.dungeon.core.Configuration;
 
-
+/**
+ * Activité permettant à l'utilisateur de modifier les paramètres du jeu.
+ * L'utilisateur peut modifier :
+ * - La puissance initiale du joueur.
+ * - Le nombre de points de vie initiaux du joueur.
+ * - La puissance maximale des adversaires.
+ * - La difficulté de la partie (via un Spinner).
+ */
 public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +36,10 @@ public class SettingActivity extends AppCompatActivity {
         editPdvJoueur.setText(String.valueOf(Configuration.POINTS_DE_VIE_INITIAUX));
         editPuissanceAdversaire.setText(String.valueOf(Configuration.PUISSANCE_MAX_ADVERSAIRE));
 
+        /**
+         * Lorsque l'utilisateur clique sur "Enregistrer", on récupère les nouvelles valeurs
+         * saisies et on met à jour la configuration du jeu.
+         */
         btnSave.setOnClickListener(v -> {
             try {
                 // Récupérer les nouvelles valeurs saisies par l'utilisateur

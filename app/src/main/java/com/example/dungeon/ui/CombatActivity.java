@@ -20,14 +20,14 @@ import com.example.dungeon.model.Adversaire;
 import com.example.dungeon.model.EtatPiece;
 import com.example.dungeon.model.Joueur;
 
+/**
+ * Activité gérant l'interface de combat entre le joueur et un adversaire.
+ * Le joueur peut choisir d'attaquer ou de fuir.
+ * Le résultat du combat influence l'état de la partie et les statistiques du joueur.
+ */
 public class  CombatActivity extends AppCompatActivity {
-    private  int pieceId;
-    private int puissanceAdversaire;
-    private int joueurPuissance;
-    private int joueurPDV;
-
-    private GameManager gameManager;
-
+    private int pieceId;  // Identifiant de la pièce où se déroule le combat
+    private GameManager gameManager; // Instance du GameManager pour récupérer l'état du jeu
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class  CombatActivity extends AppCompatActivity {
         tvPuissanceAdversaire.setText(String.valueOf(adversaire.getPuissance()));
         tvPuissanceJoueur.setText(String.valueOf(joueur.getPuissance()));
         tvPointsDeVie.setText(String.valueOf(joueur.getPointsDeVie()));
-        ivAdversaire.setImageResource(R.drawable.monster);
+        ivAdversaire.setImageResource(R.drawable.monster3);
         tvAdversaireNom.setText(adversaire.getNom());
 
         // Gestion des actions
@@ -78,6 +78,15 @@ public class  CombatActivity extends AppCompatActivity {
         btnFuite.setOnClickListener(v -> gererFuite(joueur, tvPointsDeVie));
     }
 
+    /**
+     * Gère l'attaque du joueur contre l'adversaire.
+     * Met à jour les statistiques et vérifie l'état du combat.
+     *
+     * @param joueur Instance du joueur
+     * @param adversaire Instance de l'adversaire
+     * @param tvPuissanceJoueur Affichage de la puissance du joueur
+     * @param tvPointsDeVie Affichage des points de vie du joueur
+     */
     private void gererAttaque(Joueur joueur, Adversaire adversaire, TextView tvPuissanceJoueur, TextView tvPointsDeVie) {
         // Utiliser la méthode `gererCombat` de la classe Combat
         Combat.gererCombat(joueur, gameManager.getDonjon(), pieceId);
@@ -101,6 +110,14 @@ public class  CombatActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * Gère la fuite du joueur de la pièce.
+     * Applique une perte de points de vie et marque la pièce comme explorée mais non terminée.
+     *
+     * @param joueur Instance du joueur
+     * @param tvPointsDeVie Affichage des points de vie du joueur
+     */
     private void gererFuite(Joueur joueur, TextView tvPointsDeVie) {
         // Utiliser la méthode `gererFuite` de la classe Combat
         Combat.gererFuite(joueur,gameManager.getDonjon(),pieceId);
@@ -126,6 +143,11 @@ public class  CombatActivity extends AppCompatActivity {
         finish(); // Fermer l'activité et retourner à MainActivity
     }
 
+
+    /**
+     * Gère l'action lorsque l'utilisateur appuie sur le bouton retour.
+     * Considère cela comme une fuite et applique les mêmes conséquences.
+     */
     @Override
     public void onBackPressed() {
         GameManager gameManager = GameManager.getInstance();

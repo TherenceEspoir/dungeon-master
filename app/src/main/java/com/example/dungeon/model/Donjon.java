@@ -4,6 +4,10 @@ import com.example.dungeon.combat.Bonus;
 import com.example.dungeon.combat.BonusType;
 import com.example.dungeon.core.Configuration;
 
+/**
+ * Classe représentant le Donjon dans le jeu.
+ * Un donjon est composé de 16 pièces, chacune contenant un adversaire et pouvant contenir un bonus.
+ */
 public class Donjon {
     private static final String[] NOM_ADVERSAIRES = {
             "Gobelin", "Troll", "Dragon", "Squelette", "Sorcière",
@@ -11,9 +15,9 @@ public class Donjon {
             "Golem de pierre", "Esprit hanté", "Hydre", "Cyclope", "Fantôme", "Démon"
     };
     private static final int NB_PIECES = 16;
-    private Adversaire[] pieces;
+    private Adversaire[] pieces; // Tableau contenant les adversaires dans chaque pièce
     private int nbPiecesNonExplorees;
-    private EtatPiece[] etatsPieces;
+    private EtatPiece[] etatsPieces; // Tableau stockant l'état de chaque pièce
     private int indexPotionMagique;  // Indice de la pièce contenant la potion magique
     private int indexCharmePuissance;  // Indice de la pièce contenant le charme de puissance
 
@@ -38,30 +42,6 @@ public class Donjon {
     {
         return etatsPieces[piece];
     }
-/*
-    public void setEtatPiece(int piece,EtatPiece etat)
-    {
-        if(etatsPieces[piece] == EtatPiece.NON_EXPLOREE)
-        {
-            if(etat == EtatPiece.EXPLOREE_TERMINEE ) {
-                nbPiecesNonExplorees--; //Réduire le compteur uniquepent si la pièce est complètement explorée
-            }
-        }
-        etatsPieces[piece] = etat; // Mettre à jour l'état de la pièce
-    }
-*/
-
-    /*
-    public void setEtatPiecee(int piece, EtatPiece nouvelEtat) {
-        // Vérifie si la transition est de NON_EXPLOREE à EXPLOREE_TERMINEE
-        if (etatsPieces[piece] == EtatPiece.NON_EXPLOREE && nouvelEtat == EtatPiece.EXPLOREE_TERMINEE) {
-            nbPiecesNonExplorees--; // Réduire le compteur uniquement si l'adversaire a été vaincu
-        }
-
-        // Mettre à jour l'état de la pièce
-        etatsPieces[piece] = nouvelEtat;
-
-    }*/
 
     public void setEtatPiece(int piece, EtatPiece nouvelEtat) {
         // Décrémenter si l'état courant est NON_EXPLOREE ou EXPLOREE_NON_TERMINEE,
@@ -74,22 +54,24 @@ public class Donjon {
         // Mettre à jour l'état de la pièce
         etatsPieces[piece] = nouvelEtat;
 
-        // Journal pour débogage
-        System.out.println("État de la pièce " + piece + " mis à jour à : " + nouvelEtat);
-        System.out.println("Pièces non explorées restantes : " + nbPiecesNonExplorees);
     }
-
-
-
 
     public Adversaire getAdversaire(int piece) {
         return pieces[piece];
     }
 
+    /**
+     * Retourne le nombre de pièces encore non explorées.
+     *
+     * @return Nombre de pièces non explorées.
+     */
     public int getNbPiecesNonExplorees() {
         return nbPiecesNonExplorees;
     }
 
+    /**
+     * Place aléatoirement les bonus (potion magique et charme de puissance) dans le donjon.
+     */
     private void placerBonus() {
         indexPotionMagique = (int) (Math.random() * NB_PIECES);
 
@@ -101,6 +83,12 @@ public class Donjon {
         System.out.println("Charme de puissance placé dans la pièce : " + (indexCharmePuissance + 1));
     }
 
+    /**
+     * Vérifie si une pièce contient un bonus.
+     *
+     * @param numeroPiece Numéro de la pièce.
+     * @return `true` si un bonus est présent, sinon `false`.
+     */
     public boolean contientBonus(int numeroPiece) {
         return numeroPiece == indexPotionMagique || numeroPiece == indexCharmePuissance;
     }
@@ -114,6 +102,11 @@ public class Donjon {
         return null;
     }
 
+    /**
+     * Supprime un bonus de la pièce une fois utilisé.
+     *
+     * @param numeroPiece Numéro de la pièce.
+     */
     public void retirerBonus(int numeroPiece) {
         if (numeroPiece == indexPotionMagique) {
             indexPotionMagique = -1;  // Bonus retiré
@@ -123,6 +116,11 @@ public class Donjon {
     }
 
 
+    /**
+     * Vérifie si tous les adversaires du donjon ont été vaincus.
+     *
+     * @return `true` si tous les adversaires ont été vaincus, sinon `false`.
+     */
     public boolean tousLesAdversairesVaincus() {
         for (int i = 0; i < NB_PIECES; i++) {
             if (pieces[i] != null) {
@@ -133,6 +131,5 @@ public class Donjon {
         }
         return true; // Tous les adversaires ont été vaincus
     }
-
 
 }

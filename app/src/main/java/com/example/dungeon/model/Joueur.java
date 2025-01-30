@@ -4,7 +4,6 @@ import com.example.dungeon.core.Configuration;
 
 public class Joueur {
 
-
     private int puissance = Configuration.PUISSANCE_INITIALE_JOUEUR;
     private int pointsDeVie = Configuration.POINTS_DE_VIE_INITIAUX;
 
@@ -17,14 +16,6 @@ public class Joueur {
 
     public int getPointsDeVie() {
         return pointsDeVie;
-    }
-
-    public void setPuissance(int puissance) {
-        this.puissance = puissance;
-    }
-
-    public void setPointsDeVie(int pointsDeVie) {
-        this.pointsDeVie = pointsDeVie;
     }
 
     public void perdrePdv(int points) {
