@@ -43,6 +43,11 @@ public class Donjon {
         return etatsPieces[piece];
     }
 
+    /**
+     * Met à jour l'état d'une pièce avec le nouvel état
+     * @param piece
+     * @param nouvelEtat
+     */
     public void setEtatPiece(int piece, EtatPiece nouvelEtat) {
         // Décrémenter si l'état courant est NON_EXPLOREE ou EXPLOREE_NON_TERMINEE,
         // et que le nouvel état est EXPLOREE_TERMINEE
@@ -71,16 +76,13 @@ public class Donjon {
 
     /**
      * Place aléatoirement les bonus (potion magique et charme de puissance) dans le donjon.
+     * En evitant de placer deux types de bonus dans une meme pièce.
      */
     private void placerBonus() {
         indexPotionMagique = (int) (Math.random() * NB_PIECES);
-
         do {
             indexCharmePuissance = (int) (Math.random() * NB_PIECES);
-        } while (indexCharmePuissance == indexPotionMagique);  // Pour eviter de placer les deux bonus dans la même pièce
-
-        System.out.println("Potion magique placée dans la pièce : " + (indexPotionMagique + 1));
-        System.out.println("Charme de puissance placé dans la pièce : " + (indexCharmePuissance + 1));
+        } while (indexCharmePuissance == indexPotionMagique);
     }
 
     /**
@@ -93,6 +95,10 @@ public class Donjon {
         return numeroPiece == indexPotionMagique || numeroPiece == indexCharmePuissance;
     }
 
+    /**
+     * Obtient le type de bonus présent dans une pièce
+     * @param numeroPiece
+     */
     public Bonus getBonus(int numeroPiece) {
         if (numeroPiece == indexPotionMagique) {
             return new Bonus(BonusType.POTION_MAGIQUE);
@@ -131,5 +137,4 @@ public class Donjon {
         }
         return true; // Tous les adversaires ont été vaincus
     }
-
 }

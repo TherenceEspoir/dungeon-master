@@ -115,3 +115,8 @@ Le projet est organisé en plusieurs packages pour assurer une séparation clair
 ![Texte alternatif](exemple/win_screen.png)
 ![Texte alternatif](exemple/screen4.png)
 
+le symbole ✓ dans une pièce indique que le joueur a vaincu le combat.
+le symbole ? dans une pièce indique que le joueur n'a pas encore exploré cette pièce.
+Le symbole à flèche sortante (➜) suggère une action possible, une zone à explorer . le joueur a fui cette pièce ou a perdu son combat là. 
+
+

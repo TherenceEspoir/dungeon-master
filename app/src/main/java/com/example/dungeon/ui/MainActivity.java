@@ -40,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvResultatCombat;
     private TextView tvPiecesNonExplorees;
 
+    private static final int BOUTON_WIDTH = 150;
+    private static final int BOUTON_HEIGHT = 75;
+    private static final int MARGIN_SIZE = 8;
+
+    private static final String MESSAGE_VICTOIRE = "Bravo, vous avez gagné ! Relancez une nouvelle partie.";
+    private static final String MESSAGE_PERTE = "Vous avez perdu ! Relancez une nouvelle partie.";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -210,19 +217,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         TextView tvPiecesNonExplorees = findViewById(R.id.tv_pieces_non_explorees_label);
-        tvPiecesNonExplorees.setText( String.valueOf(gameManager.getDonjon().getNbPiecesNonExplorees()) + ": ");
+        tvPiecesNonExplorees.setText(String.valueOf(gameManager.getDonjon().getNbPiecesNonExplorees()) + ": ");
     }
 
 
+    /**
+     * **Méthode `rendreGrille`**
+     * - Génère **dynamiquement** la grille des pièces du donjon.
+     * - Applique l'image correspondant à l'**état de chaque pièce**.
+     */
     private void rendreGrille(GridLayout gridLayout) {
         int totalButtons = 16;
         gridLayout.removeAllViews(); // Nettoyer les anciennes vues
 
-        for (int i = 0; i < totalButtons; i++) { // Commencer à 0 pour correspondre à l'index du tableau
+        for (int i = 0; i < totalButtons; i++) {
 
             ImageView imageView = new ImageView(this);
             imageView.setBackgroundColor(Color.parseColor("#283593"));
-
 
             //Choisir une image en fonction de l'état de la pièce
             
@@ -248,12 +259,11 @@ public class MainActivity extends AppCompatActivity {
 
             // Paramètres de mise en page pour le bouton
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-            params.width = 150;
-            params.height = 75;
+            params.width = BOUTON_WIDTH;
+            params.height = BOUTON_HEIGHT;
             params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
             params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
-            params.setMargins(8, 8, 8, 8);
-
+            params.setMargins(MARGIN_SIZE, MARGIN_SIZE, MARGIN_SIZE, MARGIN_SIZE);
             imageView.setLayoutParams(params);
 
             // Ajouter le bouton au GridLayout
@@ -287,15 +297,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Mettre à jour le message de résultat du combat tvResultatCombat
-
         if ("gagné".equalsIgnoreCase(msg)) {
-            tvResultatCombat.setText("Bravo, vous avez gagné ! Relancez une nouvelle partie.");
+            tvResultatCombat.setText(MESSAGE_VICTOIRE);
         } else if ("perdu".equalsIgnoreCase(msg)) {
-            tvResultatCombat.setText("Vous avez perdu ! Relancez une nouvelle partie.");
+            tvResultatCombat.setText(MESSAGE_PERTE);
         }
     }
 
 
+    /**
+     * **Méthode `appliquerBonus`**
+     * - Applique un **bonus** (potion magique ou charme de puissance).
+     */
     private void appliquerBonus(Joueur joueur, Bonus bonus) {
         if (bonus.getType() == BonusType.POTION_MAGIQUE) {
             int pointsDeVieRestitues = bonus.getValeur();
