@@ -46,30 +46,9 @@ Dungeon est un jeu d'exploration et de combat où le joueur explore un donjon, a
 
 Le projet est organisé en plusieurs packages pour assurer une séparation claire des responsabilités.
 
-### com.example.dungeon
-### │── ui
-### │ ├── MainActivity.java
-### │ ├── CombatActivity.java
-### │ ├── SettingActivity.java
-### │
-### │── core
-### │ ├── GameManager.java
-### │ ├── Configuration.java
-### │
-### │── model
-### │ ├── Joueur.java
-### │ ├── Adversaire.java
-### │ ├── Donjon.java
-### │ ├── EtatJeu.java
-### │ ├── EtatPiece.java
-###
-### │
-### │── combat
-### │ ├── Combat.java
-### │ ├── Bonus.java
-### │ ├── BonusType.java
 
-
+## Vue de l'application
+![Texte alternatif](exemple/class.png)
 
 - **📂 ui** : Contient les activités liées à l'interface utilisateur.
 - **📂 core** : Gère la logique globale du jeu.
@@ -129,3 +108,10 @@ Le projet est organisé en plusieurs packages pour assurer une séparation clair
 
 - Android Studio installé
 - Un émulateur ou un appareil Android physique
+
+### Quelques vues de l'application
+![Texte alternatif](exemple/screen1.png)
+![Texte alternatif](exemple/screen2.png)
+![Texte alternatif](exemple/win_screen.png)
+![Texte alternatif](exemple/screen4.png)
+
